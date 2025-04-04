@@ -21,24 +21,48 @@ jobs:
   deploy-to-dev:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
   tests-on-dev:
     runs-on: self-hosted
     needs : [ deploy-to-dev ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
   deploy-to-staging:
     runs-on: self-hosted
     needs : [ tests-on-dev ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
   tests-on-staging:
     runs-on: self-hosted
     needs : [ deploy-to-staging ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
   deploy-to-preprod:
     runs-on: self-hosted
     needs : [ tests-on-staging ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
   tests-on-preprod:
     runs-on: self-hosted
     needs : [ deploy-to-preprod ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
   deploy-to-prod:
     runs-on: self-hosted
     needs : [ tests-on-preprod ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
   tests-on-prod:
     runs-on: self-hosted
     needs : [ deploy-to-prod ]
+    steps:
+      - name: Log message
+        run: echo "Placeholder"
