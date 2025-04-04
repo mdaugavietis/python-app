@@ -1,0 +1,58 @@
+name: Python greeetings
+
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  install-pip-deps:
+    runs-on: self-hosted
+    steps: 
+      - name: Log message
+        run: echo "Installing all pip dependencies..."
+      - name: Install deps step
+        uses: actions/checkout@v4
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'app'
+        run: cd app && pip3 install -r requirements.txt
+  deploy-to-dev:
+    runs-on: self-hosted
+    needs : [ install-pip-deps ]
+  tests-on-dev:
+    runs-on: self-hosted
+    needs : [ deploy-to-dev ]
+  deploy-to-staging:
+    runs-on: self-hosted
+    needs : [ tests-on-dev ]
+  tests-on-staging:
+    runs-on: self-hosted
+    needs : [ deploy-to-staging ]
+  deploy-to-preprod:
+    runs-on: self-hosted
+    needs : [ tests-on-staging ]
+  tests-on-preprod:
+    runs-on: self-hosted
+    needs : [ deploy-to-preprod ]
+  deploy-to-prod:
+    runs-on: self-hosted
+    needs : [ tests-on-preprod ]
+  tests-on-prod:
+    runs-on: self-hosted
+    needs : [ deploy-to-prod ]
+
+hello:
+  runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print greeting
+        run: echo Hello, world!
+
+  node-version:
+    runs-on: npm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Chech node version
+        run: node --version
