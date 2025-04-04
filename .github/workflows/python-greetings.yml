@@ -42,17 +42,3 @@ jobs:
   tests-on-prod:
     runs-on: self-hosted
     needs : [ deploy-to-prod ]
-
-hello:
-  runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-      - name: Print greeting
-        run: echo Hello, world!
-
-  node-version:
-    runs-on: npm
-    steps:
-      - uses: actions/checkout@v4
-      - name: Chech node version
-        run: node --version
