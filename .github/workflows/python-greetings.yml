@@ -23,17 +23,17 @@ jobs:
       - name: Install deps step
         working-directory: app
         run: |
-          python3 -m venv ../.venv
-          source ../.venv/bin/activate
+          python3 -m venv .venv
+          source .venv/bin/activate
           pip3 install -r requirements.txt
   deploy-to-dev:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
     steps:
-      - name: Deploy the app
+      - name: Deploy the app to dev
         working-directory: app
         run: |
-          source ../.venv/bin/activate
+          source .venv/bin/activate
           RUNNER_TRACKING_ID="" && pm2 delete greetings-app-dev || true
           pm2 start app.py --name greetings-app-dev -- --port 7001
   tests-on-dev:
@@ -42,6 +42,16 @@ jobs:
     steps:
       - name: Log message
         run: echo "Placeholder"
+      - uses: actions/checkout@v4
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'tests'
+      - name: Setup and run tests on dev
+        working-directory: tests
+        run: |
+          npm install
+          npm run greeetings greetings_dev
+
   deploy-to-staging:
     runs-on: self-hosted
     needs : [ tests-on-dev ]

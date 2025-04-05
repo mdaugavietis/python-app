@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 {
-  environment.systemPackages = with pkgs; [ kitty pm2 python3 ];
+  environment.systemPackages = with pkgs; [ kitty pm2 python3 nodejs_20 ];
 
   services.github-runners = {
     python-app-runner = {
@@ -12,6 +12,7 @@
         "nixos"
         "pm2"
         "python3"
+        "npm"
       ];
       extraPackages = config.environment.systemPackages;
     };
