@@ -7,6 +7,11 @@ inputs:
   port:
     description: "Port used by for Python Flask App"
     required: true
+
+defaults:
+  run:
+    shell: bash
+
 runs:
   using: composite
   steps:
