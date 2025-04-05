@@ -17,8 +17,7 @@ jobs:
           repository: 'mtararujs/python-greetings'
           path: 'app'
       - name: Install deps step
-        # run: cd app && pip3 install -r requirements.txt
-        run: python --version && pip --version
+        run: cd app && pip3 install -r requirements.txt
   deploy-to-dev:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
