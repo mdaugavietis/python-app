@@ -6,6 +6,10 @@ on:
 
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   install-pip-deps:
     runs-on: self-hosted
@@ -17,16 +21,28 @@ jobs:
           repository: 'mtararujs/python-greetings'
           path: 'app'
       - name: Install deps step
+        working-directory: app
         run: |
-          cd app
           python3 -m venv .venv
-          .venv/bin/pip3 install -r requirements.txt
+          source .venv/bin/activate
+          pip3 install -r requirements.txt
   deploy-to-dev:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
     steps:
       - name: Log message
-        run: echo "Placeholder"
+        run: |
+          ls -al
+          ls -al app
+      # - uses: actions/checkout@v4
+      #   with:
+      #     repository: 'mtararujs/python-greetings'
+      #     path: 'app'
+      # - name: Deploy the app
+      #   run: |
+      #     source ../.venv/bin/activate
+      #     cd app
+      #     python3 app.py
   tests-on-dev:
     runs-on: self-hosted
     needs : [ deploy-to-dev ]
