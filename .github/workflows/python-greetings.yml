@@ -30,18 +30,16 @@ jobs:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
     steps:
-      - name: Deploy the app to dev
-        working-directory: app
-        run: |
-          source .venv/bin/activate
-          RUNNER_TRACKING_ID="" && pm2 delete greetings-app-dev || true
-          pm2 start app.py --name greetings-app-dev -- --port 7001
+      - uses: ./.github/actions/deploy
+        with:
+          env: 'dev'
+          port: 7001
   tests-on-dev:
     runs-on: self-hosted
     needs : [ deploy-to-dev ]
     steps:
       - name: Log message
-        run: echo "Placeholder"
+        run: echo "Testing the app to dev environment..."
       - uses: actions/checkout@v4
         with:
           repository: 'mtararujs/course-js-api-framework'

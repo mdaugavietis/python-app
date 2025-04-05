@@ -1,0 +1,20 @@
+name: "Deploy Python App"
+description: "Composite action to deploy our Python Flask App using pm2"
+inputs: 
+  env:
+    description: "Environment where to deploy Python Flask App"
+    required: true
+  port:
+    description: "Port used by for Python Flask App"
+    required: true
+runs:
+  using: composite
+  steps:
+      - name: Log message
+        run: echo "Deploying the app to ${{ inputs.env }} environment..."
+      - name: Deploy the app to ${{ inputs.env }}
+        working-directory: app
+        run: |
+          source .venv/bin/activate
+          RUNNER_TRACKING_ID="" && pm2 delete greetings-app-${{ inputs.env }} || true
+          pm2 start app.py --name greetings-app-${{ inputs.env }} -- --port ${{ inputs.port }} 
