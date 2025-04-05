@@ -13,7 +13,7 @@
         "pm2"
         "python3"
       ];
-      extraPackages = with pkgs; [ pm2 python3.withPackages(ps: with ps; [pip]) nodejs_20 ];
+      extraPackages = with pkgs; [ pm2 (python3.withPackages(ps: with ps; [pip])) nodejs_20 ];
     };
   };
 }
