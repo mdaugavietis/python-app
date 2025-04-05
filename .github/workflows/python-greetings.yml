@@ -30,11 +30,6 @@ jobs:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
     steps:
-      - name: Log message
-      - uses: actions/checkout@v4
-        with:
-          repository: 'mtararujs/python-greetings'
-          path: 'app'
       - name: Deploy the app
         working-directory: app
         run: |
