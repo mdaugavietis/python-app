@@ -36,11 +36,11 @@ jobs:
         with:
           repository: 'mdaugavietis/python-app'
           sparse-checkout: .github/actions
-          clean: false
           sparse-checkout-cone-mode: false
+          path: python-app
       - name: Check wd
         run: ls -al
-      - uses: ./.github/actions/deploy
+      - uses: ./python-app/.github/actions/deploy
         with:
           env: 'dev'
           port: 7001
