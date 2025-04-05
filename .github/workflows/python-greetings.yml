@@ -52,35 +52,46 @@ jobs:
     runs-on: self-hosted
     needs : [ tests-on-dev ]
     steps:
-      - name: Log message
-        run: echo "Placeholder"
+      - uses: ./python-app/.github/actions/deploy
+        with:
+          env: 'staging'
+          port: 7002
   tests-on-staging:
     runs-on: self-hosted
     needs : [ deploy-to-staging ]
     steps:
-      - name: Log message
-        run: echo "Placeholder"
+      - uses: ./python-app/.github/actions/test
+        with:
+          env: 'staging'
+
   deploy-to-preprod:
     runs-on: self-hosted
     needs : [ tests-on-staging ]
     steps:
-      - name: Log message
-        run: echo "Placeholder"
+      - uses: ./python-app/.github/actions/deploy
+        with:
+          env: 'preprod'
+          port: 7003
   tests-on-preprod:
     runs-on: self-hosted
     needs : [ deploy-to-preprod ]
     steps:
-      - name: Log message
-        run: echo "Placeholder"
+      - uses: ./python-app/.github/actions/test
+        with:
+          env: 'preprod'
+
   deploy-to-prod:
     runs-on: self-hosted
     needs : [ tests-on-preprod ]
     steps:
-      - name: Log message
-        run: echo "Placeholder"
+      - uses: ./python-app/.github/actions/deploy
+        with:
+          env: 'prod'
+          port: 7004
   tests-on-prod:
     runs-on: self-hosted
     needs : [ deploy-to-prod ]
     steps:
-      - name: Log message
-        run: echo "Placeholder"
+      - uses: ./python-app/.github/actions/test
+        with:
+          env: 'prod'
