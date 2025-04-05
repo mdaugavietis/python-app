@@ -30,9 +30,10 @@ jobs:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
     steps:
-      - uses: 'mdaugavietis/python-app'
+      - uses: actions/checkout@v4
         with:
-          sparse-checkout: .github
+          repository: 'mdaugavietis/python-app'
+          sparse-checkout: .github/actions
       - name: Check wd
         run: ls -al
       - uses: ./.github/actions/deploy
