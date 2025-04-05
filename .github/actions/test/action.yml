@@ -1,0 +1,20 @@
+name: "Test Python App"
+description: "Composite action to deploy our Python Flask App using pm2"
+inputs: 
+  env:
+    description: "Environment where to deploy Python Flask App"
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Log message
+      run: echo "Testing the app to ${{ inputs.env }} environment..."
+    - uses: actions/checkout@v4
+      with:
+        repository: 'mtararujs/course-js-api-framework'
+        path: 'tests'
+    - name: Setup and run tests on ${{ inputs.env }}
+      working-directory: tests
+      run: |
+        npm install
+        npm run greetings greetings_${{ inputs.env }}

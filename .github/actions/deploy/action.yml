@@ -11,13 +11,13 @@ inputs:
 runs:
   using: composite
   steps:
-      - name: Log message
-        shell: bash
-        run: echo "Deploying the app to ${{ inputs.env }} environment..."
-      - name: Deploy the app to ${{ inputs.env }}
-        shell: bash
-        working-directory: app
-        run: |
-          source .venv/bin/activate
-          RUNNER_TRACKING_ID="" && pm2 delete greetings-app-${{ inputs.env }} || true
-          pm2 start app.py --name greetings-app-${{ inputs.env }} -- --port ${{ inputs.port }} 
+    - name: Log message
+      shell: bash
+      run: echo "Deploying the app to ${{ inputs.env }} environment..."
+    - name: Deploy the app to ${{ inputs.env }}
+      shell: bash
+      working-directory: app
+      run: |
+        source .venv/bin/activate
+        RUNNER_TRACKING_ID="" && pm2 delete greetings-app-${{ inputs.env }} || true
+        pm2 start app.py --name greetings-app-${{ inputs.env }} -- --port ${{ inputs.port }} 

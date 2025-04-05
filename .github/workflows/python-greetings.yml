@@ -30,16 +30,12 @@ jobs:
     runs-on: self-hosted
     needs : [ install-pip-deps ]
     steps:
-      - name: Check wd
-        run: ls -al
       - uses: actions/checkout@v4
         with:
           repository: 'mdaugavietis/python-app'
           sparse-checkout: .github/actions
           sparse-checkout-cone-mode: false
           path: python-app
-      - name: Check wd
-        run: ls -al
       - uses: ./python-app/.github/actions/deploy
         with:
           env: 'dev'
@@ -48,17 +44,9 @@ jobs:
     runs-on: self-hosted
     needs : [ deploy-to-dev ]
     steps:
-      - name: Log message
-        run: echo "Testing the app to dev environment..."
-      - uses: actions/checkout@v4
+      - uses: ./python-app/.github/actions/test
         with:
-          repository: 'mtararujs/course-js-api-framework'
-          path: 'tests'
-      - name: Setup and run tests on dev
-        working-directory: tests
-        run: |
-          npm install
-          npm run greetings greetings_dev
+          env: 'dev'
 
   deploy-to-staging:
     runs-on: self-hosted
