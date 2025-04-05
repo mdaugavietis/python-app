@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
-  environment.systemPackages = with pkgs; [ kitty ];
-  system.stateVersion = "24.11";
+  environment.systemPackages = with pkgs; [ kitty pm2 python3 ];
+
   services.github-runners = {
     python-app-runner = {
       enable = true;
@@ -13,7 +13,8 @@
         "pm2"
         "python3"
       ];
-      extraPackages = with pkgs; [ pm2 (python3.withPackages(ps: with ps; [pip])) nodejs_20 ];
+      extraPackages = config.environment.systemPackages;
     };
   };
+  system.stateVersion = "24.11";
 }
