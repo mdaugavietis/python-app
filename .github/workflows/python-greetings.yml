@@ -50,7 +50,7 @@ jobs:
         working-directory: tests
         run: |
           npm install
-          npm run greeetings greetings_dev
+          npm run greetings greetings_dev
 
   deploy-to-staging:
     runs-on: self-hosted
