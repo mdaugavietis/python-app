@@ -33,8 +33,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: 'mdaugavietis/python-app'
-          sparse-checkout: |
-            .github/actions
+          sparse-checkout: actions
       - name: Check wd
         run: ls -al
       - uses: ./.github/actions/deploy
