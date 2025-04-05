@@ -48,25 +48,25 @@ jobs:
         with:
           env: 'dev'
 
-  deploy-to-staging:
+  deploy-to-stg:
     runs-on: self-hosted
     needs : [ tests-on-dev ]
     steps:
       - uses: ./python-app/.github/actions/deploy
         with:
-          env: 'staging'
+          env: 'stg'
           port: 7002
-  tests-on-staging:
+  tests-on-stg:
     runs-on: self-hosted
-    needs : [ deploy-to-staging ]
+    needs : [ deploy-to-stg ]
     steps:
       - uses: ./python-app/.github/actions/test
         with:
-          env: 'staging'
+          env: 'stg'
 
   deploy-to-preprod:
     runs-on: self-hosted
-    needs : [ tests-on-staging ]
+    needs : [ tests-on-stg ]
     steps:
       - uses: ./python-app/.github/actions/deploy
         with:
