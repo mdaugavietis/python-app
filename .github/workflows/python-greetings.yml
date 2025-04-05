@@ -34,7 +34,7 @@ jobs:
         with:
           repository: 'mdaugavietis/python-app'
           sparse-checkout: .github/actions
-          sparse-checkout-cone-mode
+          sparse-checkout-cone-mode: false
       - name: Check wd
         run: ls -al
       - uses: ./.github/actions/deploy
