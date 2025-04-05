@@ -8,16 +8,14 @@ inputs:
     description: "Port used by for Python Flask App"
     required: true
 
-defaults:
-  run:
-    shell: bash
-
 runs:
   using: composite
   steps:
       - name: Log message
+        shell: bash
         run: echo "Deploying the app to ${{ inputs.env }} environment..."
       - name: Deploy the app to ${{ inputs.env }}
+        shell: bash
         working-directory: app
         run: |
           source .venv/bin/activate
